@@ -189,6 +189,8 @@ void sha256_double_hash_hex(const char *input, char *output, unsigned int len);
 #include "algos/lyra2zz.h"
 #include "algos/lyra2z330.h"
 #include "algos/m7m.h"
+#include "algos/megabtx.h"
+#include "algos/megamec.h"
 #include "algos/minotaur.h"
 #include "algos/neoscrypt.h"
 #include "algos/nist5.h"
@@ -235,3 +237,4 @@ void sha256_double_hash_hex(const char *input, char *output, unsigned int len);
 #include "algos/xevan.h"
 #include "algos/yespower/yespower.h"
 #include "algos/zr5.h"
+#include "algos/gr.h"

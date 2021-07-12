@@ -443,17 +443,13 @@ function yaamp_fee($algo)
 
     /*    $norm = yaamp_get_algo_norm($algo);
     if($norm == 0) $norm = 1;
-
     $hashrate = getdbosql('db_hashrate', "algo=:algo order by time desc", array(':algo'=>$algo));
     if(!$hashrate || !$hashrate->difficulty) return 1;
-
     $target = yaamp_hashrate_constant($algo);
     $interval = yaamp_hashrate_step();
     $delay = time()-$interval;
-
     $rate = controller()->memcache->get_database_scalar("yaamp_pool_rate_coinonly-$algo",
     "select sum(difficulty) * $target / $interval / 1000 from shares where valid and time>$delay and algo=:algo and jobid=0", array(':algo'=>$algo));
-
     //    $fee = round(log($hashrate->hashrate * $norm / 1000000 / $hashrate->difficulty + 1), 1) + YAAMP_FEES_MINING;
     //    $fee = round(log($rate * $norm / 2000000 / $hashrate->difficulty + 1), 1) + YAAMP_FEES_MINING;
     */
