@@ -1,4 +1,4 @@
-
+#trying to make sure this goes to multi-port
 CC=gcc
 
 #CFLAGS=-c -g -I /usr/include/mysql
