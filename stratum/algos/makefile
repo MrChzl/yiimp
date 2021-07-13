@@ -1,5 +1,5 @@
 
-#Edited
+#Edited Hope this works
 CC=gcc
 
 #CFLAGS=-c -g -I /usr/include/mysql
