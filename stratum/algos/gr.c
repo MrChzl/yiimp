@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "gr.h"
 #include "../sha3/sph_blake.h"
 #include "../sha3/sph_bmw.h"
 #include "../sha3/sph_groestl.h"
@@ -31,6 +30,7 @@
 #include "cryptonote/cryptonight_soft_shell.h"
 #include "cryptonote/cryptonight_turtle.h"
 #include "cryptonote/cryptonight_turtle_lite.h"
+#include "gr.h"
 
 enum Algo {
         BLAKE = 0,

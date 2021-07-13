@@ -1,5 +1,6 @@
 #ifndef GR_H
 #define GR_H
+
 #ifdef __cplusplus
 extern "C" {
 #endif
