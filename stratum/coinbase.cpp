@@ -349,20 +349,48 @@ void coinbase_create(YAAMP_COIND *coind, YAAMP_JOB_TEMPLATE *templ, json_value *
 	{
 		char payees[4];
 		int npayees = 1;
+		char script_payee[128] = { 0 };
 		char script_dests[4096] = { 0 };
 	
  		json_value* smartnode = json_get_object(json_result, "smartnode");
 		bool smartnode_started = json_get_bool(json_result, "smartnode_payments_started");
 		if (smartnode_started && smartnode)
 		{
-			const char *payee = json_get_string(smartnode, "payee");
-			json_int_t amount = json_get_int(smartnode, "amount");
-			if (payee && amount) {
-				char script_payee[128] = { 0 };
-				npayees++;
-				available -= amount;
-				base58_decode(payee, script_payee);
-				job_pack_tx(coind, script_dests, amount, script_payee);
+			if (json_is_array(smartnode)) 
+			{
+				for(int i = 0; i < smartnode->u.array.length; i++) 
+				{
+					const char *payee = json_get_string(smartnode->u.array.values[i], "payee");
+					const char *script = json_get_string(smartnode->u.array.values[i], "script");
+					json_int_t amount = json_get_int(smartnode->u.array.values[i], "amount");
+					if (!amount) continue;
+					if (script) 
+					{
+						npayees++;
+						available -= amount;
+						script_pack_tx(coind, script_dests, amount, script);
+					} 
+					else if (payee) 
+					{
+						npayees++;
+						available -= amount;
+						base58_decode(payee, script_payee);
+						job_pack_tx(coind, script_dests, amount, script_payee);
+						//debuglog("%s smartnode %s %u\n", coind->symbol, payee, amount);
+					}
+				}
+			} 
+			else 
+			{
+				const char *payee = json_get_string(smartnode, "payee");
+				json_int_t amount = json_get_int(smartnode, "amount");
+				if (payee && amount) 
+				{
+					npayees++;
+					available -= amount;
+					base58_decode(payee, script_payee);
+					job_pack_tx(coind, script_dests, amount, script_payee);
+				}
 			}
 		}
 	
