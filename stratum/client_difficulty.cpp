@@ -38,11 +38,8 @@ void client_change_difficulty(YAAMP_CLIENT *client, double difficulty)
 //	debuglog("change diff to %f %f\n", difficulty, client->difficulty_actual);
 	if(difficulty == client->difficulty_actual) return;
 
-	uint64_t user_target = diff_to_target(difficulty);
-	{
-		client->difficulty_actual = difficulty;
-		client_send_difficulty(client, difficulty);
-	}
+	client->difficulty_actual = difficulty;
+	client_send_difficulty(client, difficulty);
 }
 
 void client_adjust_difficulty(YAAMP_CLIENT *client)

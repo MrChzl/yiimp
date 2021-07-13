@@ -141,4 +141,3 @@ static inline uint32_t bswap32(uint32_t x) {
 }
 
 uint64_t share_to_target(double diff);
-

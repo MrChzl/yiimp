@@ -139,7 +139,7 @@ bool coind_validate_address(YAAMP_COIND *coind)
 			return false;
 		}
 	}
-
+	
 	bool isvalid = getaddressinfo || json_get_bool(json_result, "isvalid");
 	if(!isvalid) stratumlog("%s wallet %s is not valid.\n", coind->name, coind->wallet);
 
@@ -271,3 +271,9 @@ void coind_terminate(YAAMP_COIND *coind)
 
 //	coind_terminate(coind);
 //}
+
+
+
+
+
+

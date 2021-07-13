@@ -6,7 +6,7 @@
 //
 //  October 2008
 //
-//  This file is the exact copy from the reference implementation.
+//	This file is the exact copy from the reference implementation.
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef __SWIFFTX__
@@ -19,6 +19,7 @@ extern "C"{
 // See the remarks concerning compatibility issues inside stdint.h.
 #include "stdint.h"
 #include "stdbool.h"
+//#include "SHA3swift.h"
 
 // The size of SWIFFTX input in bytes.
 #define SWIFFTX_INPUT_BLOCK_SIZE 256
@@ -37,12 +38,12 @@ extern "C"{
 //   processing.
 // - m: the length of the input in bytes.
 // - output: the resulting hash value of SWIFFT, of size 65 bytes (520 bit). This is the
-//   result of summing the dot products of the DFTS with the A's after applying the base
-//   change transformation
+//	 result of summing the dot products of the DFTS with the A's after applying the base
+//	 change transformation
 // - A: the A's coefficients to work with (since every SWIFFT in SWIFFTX uses different As).
 //   A single application of SWIFFT uses 64*m A's.
 void ComputeSingleSWIFFT(unsigned char *input, unsigned short m,
-						 unsigned char output[SWIFFTX_OUTPUT_BLOCK_SIZE],
+					  	 unsigned char output[SWIFFTX_OUTPUT_BLOCK_SIZE],
 						 const swift_int16_t *a);
 
 // Computes the result of a single SWIFFTX operation.
@@ -59,8 +60,8 @@ void ComputeSingleSWIFFT(unsigned char *input, unsigned short m,
 // Returns:
 // - Success value.
 void ComputeSingleSWIFFTX(unsigned char input[SWIFFTX_INPUT_BLOCK_SIZE],
-						 unsigned char output[SWIFFTX_OUTPUT_BLOCK_SIZE],
-						 bool doSmooth);
+			  	          unsigned char output[SWIFFTX_OUTPUT_BLOCK_SIZE],
+						  bool doSmooth);
 
 // Calculates the powers of OMEGA and generates the bit reversal permutation.
 // You must call this function before doing SWIFFT/X, otherwise you will get zeroes everywhere.

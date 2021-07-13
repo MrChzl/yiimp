@@ -506,7 +506,7 @@ SHA256_Pad_Almost(SHA256_CTX * ctx, uint8_t len[static restrict 8],
  * write the output to buf.  The value dkLen must be at most 32 * (2^32 - 1).
  */
 void
-PBKDF2_SHA256(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
+PBKDF2_SHA256_YP(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
     size_t saltlen, uint64_t c, uint8_t * buf, size_t dkLen)
 {
 	HMAC_SHA256_CTX Phctx, PShctx, hctx;
@@ -1083,7 +1083,7 @@ int yespower(yespower_local_t *local,
 	}
 
 	/* 1: (B_0 ... B_{p-1}) <-- PBKDF2(P, S, 1, p * MFLen) */
-	PBKDF2_SHA256((uint8_t *)sha256, sizeof(sha256),
+	PBKDF2_SHA256_YP((uint8_t *)sha256, sizeof(sha256),
 	    src, srclen, 1, (uint8_t *)B, B_size);
 
 	blkcpy(sha256, B, sizeof(sha256) / sizeof(sha256[0]));
@@ -1093,7 +1093,7 @@ int yespower(yespower_local_t *local,
 
 	if (version == YESPOWER_0_5) {
 		/* 5: DK <-- PBKDF2(P, B, 1, dkLen) */
-		PBKDF2_SHA256((uint8_t *)sha256, sizeof(sha256),
+		PBKDF2_SHA256_YP((uint8_t *)sha256, sizeof(sha256),
 		    (uint8_t *)B, B_size, 1, (uint8_t *)dst, sizeof(*dst));
 
 		if (pers) {
@@ -1145,6 +1145,66 @@ int yespower_free_local(yespower_local_t *local)
 
 void yespower_hash(const char* input, char* output, uint32_t len)
 {
+    yespower_params_t yespower_1_0 = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 32,
+        .pers = NULL,
+        .perslen = 0
+    };
+    yespower_tls(input, 80, &yespower_1_0, (yespower_binary_t *)output);
+}
+
+void yespowerIC_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_isotopec = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 32,
+        .pers = (const uint8_t *)"IsotopeC",
+        .perslen = 8
+    };
+    yespower_tls(input, 80, &yespower_1_0_isotopec, (yespower_binary_t *)output);
+}
+
+void yespowerIOTS_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_iots = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 32,
+        .pers = (const uint8_t *)"Iots is committed to the development of IOT",
+        .perslen = 43
+    };
+    yespower_tls(input, 80, &yespower_1_0_iots, (yespower_binary_t *)output);
+}
+
+void yespowerR16_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_r16 = {
+        .version = YESPOWER_1_0,
+        .N = 4096,
+        .r = 16,
+        .pers = NULL,
+        .perslen = 0
+    };
+    yespower_tls(input, 80, &yespower_1_0_r16, (yespower_binary_t *)output);
+}
+
+void yespowerRES_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_resistance = {
+        .version = YESPOWER_1_0,
+        .N = 4096,
+        .r = 32,
+        .pers = NULL,
+        .perslen = 0
+    };
+    yespower_tls(input, 140, &yespower_1_0_resistance, (yespower_binary_t *)output);
+}
+
+void yespowerSUGAR_hash(const char* input, char* output, uint32_t len)
+{
     yespower_params_t yespower_1_0_sugarchain = {
         .version = YESPOWER_1_0,
         .N = 2048,
@@ -1155,7 +1215,7 @@ void yespower_hash(const char* input, char* output, uint32_t len)
     yespower_tls(input, 80, &yespower_1_0_sugarchain, (yespower_binary_t *)output);
 }
 
-void yespowerurx_hash(const char* input, char* output, uint32_t len)
+void yespowerURX_hash(const char* input, char* output, uint32_t len)
 {
     yespower_params_t yespower_1_0_uraniumx = {
         .version = YESPOWER_1_0,
@@ -1164,5 +1224,92 @@ void yespowerurx_hash(const char* input, char* output, uint32_t len)
         .pers = (const uint8_t *)"UraniumX",
         .perslen = 8 
     };
-    yespower_tls( input, 80, &yespower_1_0_uraniumx, (yespower_binary_t *)output);
+    yespower_tls( input, len, &yespower_1_0_uraniumx, (yespower_binary_t *)output);
 }
+
+void yespowerLTNCG_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_ltncg = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 32,
+        .pers = (const uint8_t *)"LTNCGYES",
+        .perslen = 8 
+    };
+    yespower_tls( input, len, &yespower_1_0_ltncg, (yespower_binary_t *)output);
+}
+
+void yespowerLITB_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_litb = {
+        .version = YESPOWER_1_0,
+	.N = 2048,
+	.r = 32,
+	.pers = "LITBpower: The number of LITB working or available for proof-of-work mining",
+	.perslen = 73 
+    };
+    yespower_tls( input, len, &yespower_1_0_litb, (yespower_binary_t *)output);
+}
+
+void yespowerTIDE_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_tide = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 8,
+        .pers = NULL,
+        .perslen = 0 
+    };
+    yespower_tls( input, len, &yespower_1_0_tide, (yespower_binary_t *)output);
+}
+
+void cpupower_hash(const char* input, char* output, uint32_t len)
+{
+    	yespower_params_t yespower_1_0_cpupower = 
+	{
+		.version = YESPOWER_1_0,
+		.N = 2048,
+		.r = 32,
+		.pers = "CPUpower: The number of CPU working or available for proof-of-work mining",
+		.perslen = 73 
+    	};
+    	yespower_tls( input, len, &yespower_1_0_cpupower, (yespower_binary_t *)output);
+}
+
+void power2b_hash(const char* input, char* output, uint32_t len)
+{
+    	yespower_params_t yespower_b2b_power2b = 
+	{
+		.version = YESPOWER_1_0,
+		.N = 2048,
+		.r = 32,
+		.pers = "Now I am become Death, the destroyer of worlds",
+		.perslen = 46 
+    	};
+    	yespower_b2b_tls( input, len, &yespower_b2b_power2b, (yespower_binary_t *)output);
+}
+
+void yespowerMGPC_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_MGPC = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 32,
+        .pers = "Magpies are birds of the Corvidae family.",
+        .perslen = 41
+    };
+    yespower_tls(input, len, &yespower_1_0_MGPC, (yespower_binary_t *)output);
+}
+
+void yespowerARWN_hash(const char* input, char* output, uint32_t len)
+{
+    yespower_params_t yespower_1_0_ARWN = {
+        .version = YESPOWER_1_0,
+        .N = 2048,
+        .r = 32,
+        .pers = (const uint8_t *)"ARWN",
+        .perslen = 4
+    };
+    yespower_tls(input, len, &yespower_1_0_ARWN, (yespower_binary_t *)output);
+}
+

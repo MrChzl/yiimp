@@ -28,7 +28,7 @@
  * ==========================(LICENSE BEGIN)============================
  *
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -36,10 +36,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -53,23 +53,15 @@
  * @file     sph_panama.h
  * @author   Thomas Pornin <thomas.pornin@cryptolog.com>
  */
-
-#ifndef SPH_PANAMA_H__
+ #ifndef SPH_PANAMA_H__
 #define SPH_PANAMA_H__
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-#include <stddef.h>
-#include "../sha3/sph_types.h"
-
-/**
+ #include <stddef.h>
+#include "sph_types.h"
+ /**
  * Output size (in bits) for PANAMA.
  */
 #define SPH_SIZE_panama   256
-
-/**
+ /**
  * This structure is a context for PANAMA computations: it contains the
  * intermediate values and some data from the last entered block. Once
  * a PANAMA computation has been performed, the context can be reused for
@@ -83,22 +75,18 @@ typedef struct {
 #ifndef DOXYGEN_IGNORE
 	unsigned char data[32];   /* first field, for alignment */
 	unsigned data_ptr;
-
-	sph_u32 buffer[32][8];
+ 	sph_u32 buffer[32][8];
 	unsigned buffer_ptr;
-
-	sph_u32 state[17];
+ 	sph_u32 state[17];
 #endif
 } sph_panama_context;
-
-/**
+ /**
  * Initialize a PANAMA context. This process performs no memory allocation.
  *
  * @param cc   the PANAMA context (pointer to a <code>sph_panama_context</code>)
  */
 void sph_panama_init(void *cc);
-
-/**
+ /**
  * Process some data bytes. It is acceptable that <code>len</code> is zero
  * (in which case this function does nothing).
  *
@@ -107,8 +95,7 @@ void sph_panama_init(void *cc);
  * @param len    the input data length (in bytes)
  */
 void sph_panama(void *cc, const void *data, size_t len);
-
-/**
+ /**
  * Terminate the current PANAMA computation and output the result into the
  * provided buffer. The destination buffer must be wide enough to
  * accomodate the result (32 bytes). The context is automatically
@@ -118,9 +105,4 @@ void sph_panama(void *cc, const void *data, size_t len);
  * @param dst   the destination buffer
  */
 void sph_panama_close(void *cc, void *dst);
-
-#if defined(__cplusplus)
-}
-#endif
-
-#endif
+ #endif

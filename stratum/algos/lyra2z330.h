@@ -15,4 +15,3 @@ void lyra2z330_hash(const char* input, char* output, uint32_t len);
 #endif
 
 #endif
-

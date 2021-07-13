@@ -18,7 +18,6 @@
 #include "../sha3/sph_fugue.h"
 #include "../sha3/sph_sm3.h"
 
-
 #include "common.h"
 
 void hsr_hash(const char* input, char* output, uint32_t len)

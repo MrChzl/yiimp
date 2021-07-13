@@ -1068,7 +1068,7 @@ void SWIFFTSum(const swift_int32_t *input, int m, unsigned char *output, const s
 
 void ComputeSingleSWIFFTX(unsigned char input[SWIFFTX_INPUT_BLOCK_SIZE],
                           unsigned char output[SWIFFTX_OUTPUT_BLOCK_SIZE],
-                          bool doSmooth)
+						  bool doSmooth)
 {
 	int i;
 	// Will store the result of the FFT parts:

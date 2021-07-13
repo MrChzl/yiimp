@@ -12,7 +12,7 @@ static const size_t INPUT_BYTES = 80;  // Lenth of a block header in bytes. Inpu
 static const size_t OUTPUT_BYTES = 32; // Length of output needed for a 256-bit hash
 static const unsigned int DEFAULT_ARGON2_FLAG = 2; //Same as ARGON2_DEFAULT_FLAGS
 
-void argon2d_call(const void *input, void *output)
+void argon2d_crds_call(const void *input, void *output)
 {
     argon2_context context;
     context.out = (uint8_t *)output;
@@ -33,7 +33,7 @@ void argon2d_call(const void *input, void *output)
     context.lanes = 4;     // Degree of Parallelism
     context.threads = 1;   // Threads
     context.t_cost = 1;    // Iterations
-
+	
 	argon2_ctx(&context, Argon2_d);
 }
 void argon2d_dyn_call(const void *input, void *output)
@@ -57,11 +57,10 @@ void argon2d_dyn_call(const void *input, void *output)
     context.lanes = 8;     // Degree of Parallelism
     context.threads = 1;   // Threads
     context.t_cost = 2;    // Iterations
-
+	
 	argon2_ctx(&context, Argon2_d);
 }
-
-void argon2d_uis_call(const void *input, void *output)
+void argon2d16000_call(const void *input, void *output)
 {
     argon2_context context;
     context.out = (uint8_t *)output;
@@ -78,17 +77,18 @@ void argon2d_uis_call(const void *input, void *output)
     context.free_cbk = NULL;
     context.flags = DEFAULT_ARGON2_FLAG; // = ARGON2_DEFAULT_FLAGS
     // main configurable Argon2 hash parameters
-    context.m_cost = 4096;  // Memory in KiB (4MB)
-    context.lanes = 4;     // Degree of Parallelism
+    context.m_cost = 16000; // Memory in KiB (~16384KB)
+    context.lanes = 1;    // Degree of Parallelism
     context.threads = 1;   // Threads
     context.t_cost = 1;    // Iterations
-
+	
+	
 	argon2_ctx(&context, Argon2_d);
 }
 
 void argon2d_crds_hash(const unsigned char* input, unsigned char* output, unsigned int len)
 {
-	argon2d_call(input, output);
+	argon2d_crds_call(input, output);
 }
 
 void argon2d_dyn_hash(const unsigned char* input, unsigned char* output, unsigned int len)
@@ -96,7 +96,8 @@ void argon2d_dyn_hash(const unsigned char* input, unsigned char* output, unsigne
 	argon2d_dyn_call(input, output);
 }
 
-void argon2d_uis_hash(const unsigned char* input, unsigned char* output, unsigned int len)
+void argon2d16000_hash(const unsigned char* input, unsigned char* output, unsigned int len)
 {
-	argon2d_uis_call(input, output);
+	argon2d16000_call(input, output);
 }
+

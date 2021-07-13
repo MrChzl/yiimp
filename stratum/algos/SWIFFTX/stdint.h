@@ -40,7 +40,6 @@ typedef swift_uint64_t swifftx_uint_least64_t;
 typedef signed long int int_fast16_t;
 typedef signed long int int_fast32_t;
 typedef signed long long int int_fast64_t;
-
 typedef unsigned char uint_fast8_t;
 typedef unsigned long int uint_fast16_t;
 typedef unsigned long int uint_fast32_t;
