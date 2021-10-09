@@ -15,7 +15,7 @@ echo <<<END
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<meta name="description" content="Built With Dirty Harry Yiimp Server Installer Edited by ChzlLab">
+<meta name="description" content="Built With Dirty Harry Yiimp Server Installer">
 <meta name="keywords" content="anonymous,mining,pool,maxcoin,bitcoin,altcoin,auto,switch,exchange,profit,decred,scrypt,x11,x13,x14,x15,lbry,lyra2re,neoscrypt,sha256,quark,skein2,BTC,btc">
 
 END;
@@ -147,7 +147,7 @@ function showPageFooter()
     echo '<div class="footer">';
     $year = date("Y", time());
 
-    echo "<p>&copy; $year " . YAAMP_SITE_NAME . ' - ' . '<a href="https://github.com/DirtyHarryDev/Yiimp-Server-Installer">Built With Dirty Harry Yiimp Server Installer Edited by ChzlLab</a></p>';
+    echo "<p>&copy; $year " . YAAMP_SITE_NAME . ' - ' . '<a href="https://github.com/DirtyHarryDev/Yiimp-Server-Installer">Built With Dirty Harry Yiimp Server Installer</a></p>';
 
     echo '</div><!-- footer -->';
 }

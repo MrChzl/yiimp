@@ -93,7 +93,7 @@ foreach ($db_blocks as $db_block)
     if($db_block->solo == '1') 
 	    echo '<span class="block2 solo" title="Block was found by solo miner">Solo</span>';
     else
-	    echo '<span class="block2 shared" title="Block was found by shared miners">Shared</span>'; 
+	    echo '<span class="block2 shared" title="Block was found by shared miners">Shared</span>';
     echo "</td>";
 
     echo '<td class="' . strtolower($db_block->category) . '">';
